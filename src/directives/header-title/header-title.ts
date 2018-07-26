@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, Renderer } from '@angular/core';
 
 @Directive({
-  selector: '[header-title]', // Attribute selector
+  selector: '[header-title]',
   host: {
     '(ionScroll)': 'onContentScroll($event)'
   }
