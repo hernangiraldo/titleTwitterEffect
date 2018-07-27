@@ -15,6 +15,12 @@ export class AnimationProfileDirective {
   titleNative: HTMLElement;
   lastTopImage: number;
 
+  heightHeader: number;
+  heightImage: number;
+  topImage: number;
+  topTxt: number;
+  lastTop: number;
+
   constructor(
     public elem: ElementRef,
     public renderer: Renderer
@@ -24,19 +30,34 @@ export class AnimationProfileDirective {
     this.userImage = this.elem.nativeElement.querySelector('.image-profile');
     this.userName = this.elem.nativeElement.querySelector('.name-profile');
     this.titleNative = this.header.querySelector('ion-title');
+    
+    this.heightImage = this.userImage.clientHeight;
+    this.topImage = this.userImage.offsetTop;
+    this.topTxt = this.userName.offsetTop;
+    this.heightHeader = this.header.clientHeight;
   }
 
   onContentScroll(event) {
     if (event.directionY === 'down') {
-      console.log(event.scrollTop);
-      if (event.scrollTop <= 35) {
-        this.userImage.style.width = 70 - event.scrollTop + 'px';
-        this.userImage.style.height = 70 - event.scrollTop + 'px';
+      if (event.scrollTop <= (this.heightImage / 2)) {
+        this.userImage.style.width = `${this.heightImage - event.scrollTop}px`;
+        this.userImage.style.height = `${this.heightImage - event.scrollTop}px`;
+      } else if (event.scrollTop > (this.heightImage / 2)) {
+        this.userImage.style.width = `${this.heightImage / 2}px`;
+        this.userImage.style.height = `${this.heightImage / 2}px`;
       }
   
-      if (event.scrollTop <= 80) {
-        this.userImage.style.top = 80 - event.scrollTop + 'px';
-        this.userName.style.top = 150 - event.scrollTop * 2 + 'px';
+      if (event.scrollTop <= this.topImage) {
+        this.renderer.setElementStyle(this.userImage, 'webkitTransform', `translate3d(-50%, -${this.topImage - (this.topImage - event.scrollTop)}px, 0)`)
+        // this.userImage.style.top = this.topImage - event.scrollTop + 'px';
+        
+      } else if (event.scrollTop > this.topImage) {
+        this.userImage.style.top = `${ (this.heightImage / 2) - this.heightHeader }px`;
+        this.userName.style.top = `${ (this.heightImage / 2) - this.heightHeader }px`;
+      }
+
+      if (event.scrollTop <= this.heightImage) {
+        this.userName.style.top = this.topTxt - event.scrollTop * 2 + 'px';
       }
 
       if (event.scrollTop > 55 && event.scrollTop <= 85) {
@@ -46,16 +67,20 @@ export class AnimationProfileDirective {
       }
 
     } else {
-      console.log(event.scrollTop);
-      if (event.scrollTop < 75 && event.scrollTop >= 40) {
-        this.userImage.style.width = 35 + (75 - event.scrollTop) + 'px';
-        this.userImage.style.height = 35 + (75 - event.scrollTop) + 'px';
+      if (event.scrollTop < this.topImage && event.scrollTop >= this.topImage / 2) {
+        this.userImage.style.width = `${this.heightImage / 2 + (this.topImage - event.scrollTop)}px`;
+        this.userImage.style.height = `${this.heightImage / 2 + (this.topImage - event.scrollTop)}px`;
+      } else if (event.scrollTop < this.topImage / 2) {
+        this.userImage.style.width = `${this.heightImage}px`;
+        this.userImage.style.height = `${this.heightImage}px`;;
       }
 
       if (event.scrollTop < 75) {
         this.userImage.style.top = 5 + (75 - event.scrollTop) + 'px';
-        console.log('start');
+        this.userName.style.top = `${this.topTxt}px`
       }
+
+
       // if (event.scrollTop >= 35) {
       //   this.userImage.style.width = 35 + event.scrollTop + 'px';
       //   this.userImage.style.height = 35 + event.scrollTop + 'px';

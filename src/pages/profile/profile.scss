@@ -18,7 +18,7 @@ page-profile {
         background: red;
         border-radius: 50%;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
         position: fixed;
         top: 80px;
     }
@@ -26,7 +26,7 @@ page-profile {
     .name-profile {
         margin: 0;
         left: 50%;
-        transform: translateX(-50%);
+        transform: translate3d(-50%, 0, 0);
         position: fixed;
         top: 150px;
     }
