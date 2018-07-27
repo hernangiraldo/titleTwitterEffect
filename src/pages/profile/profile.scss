@@ -5,29 +5,30 @@ page-profile {
         }
     }
 
-    header {
+    .background-user-info {
         width: 100%;
         height: 150px;
         background: lightblue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
     }
 
-
-    .image-profile {
-        width: 70px;
-        height: 70px;
-        background: red;
-        border-radius: 50%;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0);
-        position: fixed;
-        top: 80px;
+    .content-user-info {
+        display: inline-block;
+        .content-user-info__image {
+            width: 70px;
+            height: 70px;
+            background: red;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+        .content-user-info__name {
+            height: 30px;
+            line-height: 30px;
+            margin: 0;
+        }
     }
 
-    .name-profile {
-        margin: 0;
-        left: 50%;
-        transform: translate3d(-50%, 0, 0);
-        position: fixed;
-        top: 150px;
-    }
 }
