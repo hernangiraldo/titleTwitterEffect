@@ -14,8 +14,6 @@ export class AnimationProfileDirective {
   userName: HTMLElement;
   pageTitle: HTMLElement;
 
-  titleTranslateY: number;
-
   constructor(
     public elem: ElementRef,
     public renderer: Renderer
@@ -30,7 +28,6 @@ export class AnimationProfileDirective {
   }
 
   onContentScroll(event) {
-    console.log(this.titleTranslateY);
     if (event.scrollTop <= this.userImage.clientHeight / 2) {
       this.renderer.setElementStyle( this.userImage, 'webkitTransform', `scale(${(this.userImage.clientHeight / 2) / (this.userImage.clientHeight / 2 + event.scrollTop)})` );
       this.renderer.setElementStyle( this.userName, 'webkitTransform', `translateY(-${event.scrollTop/3}px)` );
