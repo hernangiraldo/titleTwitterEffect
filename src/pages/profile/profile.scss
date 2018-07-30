@@ -31,4 +31,12 @@ page-profile {
         }
     }
 
+    [sticky] {
+        height: 30px;
+        width: 100%;
+        background: blue;
+        position: -webkit-sticky;
+        position: sticky;
+    }
+
 }
