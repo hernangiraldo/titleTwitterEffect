@@ -28,16 +28,17 @@ export class AnimationProfileDirective {
   }
 
   onContentScroll(event) {
-    if (event.scrollTop <= this.userImage.clientHeight / 2) {
+    if (event.scrollTop > 0 && event.scrollTop <= this.userImage.clientHeight / 2) {
       this.renderer.setElementStyle( this.userImage, 'webkitTransform', `scale(${(this.userImage.clientHeight / 2) / (this.userImage.clientHeight / 2 + event.scrollTop)})` );
       this.renderer.setElementStyle( this.userName, 'webkitTransform', `translateY(-${event.scrollTop/3}px)` );
-    } else if (event.scrollTop > this.userImage.clientHeight / 2) {
+    } else if (event.scrollTop > 0 && event.scrollTop > this.userImage.clientHeight / 2) {
       this.renderer.setElementStyle( this.userImage, 'webkitTransform', `scale(0.5)` );
       this.renderer.setElementStyle( this.userName, 'webkitTransform', `translateY(-${event.scrollTop/3}px)` );
     }
 
-    if (this.userName.getBoundingClientRect().top  > 0) {
-      this.renderer.setElementStyle(this.pageTitle, 'webkitTransform', `translateY(${ 30 - ( event.scrollTop - (this.backgroundUserInfo.clientHeight / 2))}px)`);
+    let translate = 30 - ( event.scrollTop - (this.backgroundUserInfo.clientHeight / 2));
+    if (translate >= 0 && this.userName.getBoundingClientRect().top  > 0) {
+      this.renderer.setElementStyle(this.pageTitle, 'webkitTransform', `translateY(${translate}px)`);
     } else if (this.userName.getBoundingClientRect().top  < 0) {
       this.renderer.setElementStyle(this.pageTitle, 'webkitTransform', `translateY(0px)`);
     }
